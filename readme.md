@@ -23,8 +23,9 @@ Some important required packages include:
 [nnUNetv1_link]:https://github.com/MIC-DKFZ/nnUNet/tree/nnunetv1?tab=readme-ov-file#installation
 
 ## Dataset
-You can download BraTS 2018 via
-https://www.med.upenn.edu/sbia/brats2018/data.html
+You experiment on [BraTS2018][BraTS2018_link].
+
+[BraTS2018]:https://www.med.upenn.edu/sbia/brats2018/data.html
 ## Usages
 ### Preprocess
 ```
