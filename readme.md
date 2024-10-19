@@ -25,7 +25,8 @@ Some important required packages include:
 ## Dataset
 You experiment on [BraTS2018][BraTS2018_link].
 
-[BraTS2018]:https://www.med.upenn.edu/sbia/brats2018/data.html
+[BraTS2018_link]:https://www.med.upenn.edu/sbia/brats2018/data.html
+
 ## Usages
 ### Preprocess
 ```
