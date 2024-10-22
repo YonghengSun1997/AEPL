@@ -49,4 +49,7 @@ CUDA_VISIBLE_DEVICES=0 nnUNet_predict -i /nnUNet/nnUNet_raw/nnUNet_raw_data/Task
 ![refinement](./pictures/img.png)
 
 
+## Acknowledgements
+
+This project is developed based on [nnUNetv1](https://github.com/MIC-DKFZ/nnUNet/tree/nnunetv1), and we appreciate their original work and open-source contribution.
 
