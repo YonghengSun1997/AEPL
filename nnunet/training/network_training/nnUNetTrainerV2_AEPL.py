@@ -33,7 +33,7 @@ from torch.cuda.amp import autocast
 from nnunet.training.learning_rate.poly_lr import poly_lr
 from batchgenerators.utilities.file_and_folder_operations import *
 
-from nnunet.network_architecture.generic_UNet_AEPL import Generic_UNet_AEPL, Generic_UNet_AEPL_wogamma,Generic_UNet_AEPL_wow, Generic_UNet_AEPL_wob, Generic_UNet_AEPL_wowb
+from nnunet.network_architecture.generic_UNet_AEPL import Generic_UNet_MGAEPL, Generic_UNet_AEPL, Generic_UNet_AEPL_wogamma,Generic_UNet_AEPL_wow, Generic_UNet_AEPL_wob, Generic_UNet_AEPL_wowb
 from nnunet.training.dataloading.dataset_loading import load_dataset, DataLoader3D_AEPL, DataLoader2D, unpack_dataset
 
 
@@ -4361,3 +4361,38 @@ class nnUNetTrainerV2_AEPL_10(nnUNetTrainer):
         self.network.do_ds = ds
         return ret
 
+class nnUNetTrainerV2_MGAEPL(nnUNetTrainerV2_AEPL):
+        def initialize_network(self):
+        """
+        - momentum 0.99
+        - SGD instead of Adam
+        - self.lr_scheduler = None because we do poly_lr
+        - deep supervision = True
+        - i am sure I forgot something here
+
+        Known issue: forgot to set neg_slope=0 in InitWeights_He; should not make a difference though
+        :return:
+        """
+        if self.threeD:
+            conv_op = nn.Conv3d
+            dropout_op = nn.Dropout3d
+            norm_op = nn.InstanceNorm3d
+
+        else:
+            conv_op = nn.Conv2d
+            dropout_op = nn.Dropout2d
+            norm_op = nn.InstanceNorm2d
+
+        norm_op_kwargs = {'eps': 1e-5, 'affine': True}
+        dropout_op_kwargs = {'p': 0, 'inplace': True}
+        net_nonlin = nn.LeakyReLU
+        net_nonlin_kwargs = {'negative_slope': 1e-2, 'inplace': True}
+        self.network = Generic_UNet_MGAEPL(self.num_input_channels, self.base_num_features, self.num_classes,
+                                    len(self.net_num_pool_op_kernel_sizes),
+                                    self.conv_per_stage, 2, conv_op, norm_op, norm_op_kwargs, dropout_op,
+                                    dropout_op_kwargs,
+                                    net_nonlin, net_nonlin_kwargs, True, False, lambda x: x, InitWeights_He(1e-2),
+                                    self.net_num_pool_op_kernel_sizes, self.net_conv_kernel_sizes, False, True, True)
+        if torch.cuda.is_available():
+            self.network.cuda()
+        self.network.inference_apply_nonlin = softmax_helper
