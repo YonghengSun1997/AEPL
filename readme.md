@@ -8,7 +8,8 @@ This repository provides the code for "AEPL: Automated and Editable Prompt Learn
 ![AEPL](./pictures/AEPL_v6.png)
 Fig. 1. Structure of AEPL.
 
-
+![MGAEPL](./pictures/AEPL_v13.png)
+Fig. 1. Structure of MGAEPL.
 
 ### Requirementss
 Some important required packages include:
@@ -35,16 +36,24 @@ python ./preprocess/generate_json.py
 nnUNet_plan_and_preprocess -t 501 --verify_dataset_integrity
 ```
 
-### Train
+### AEPL Train
 ```
 CUDA_VISIBLE_DEVICES=0 nnUNet_train 3d_fullres nnUNetTrainerV2_AEPL 501 0
 ```
 
-### Test
+### AEPL Test
 ```
 CUDA_VISIBLE_DEVICES=0 nnUNet_predict -i /nnUNet/nnUNet_raw/nnUNet_raw_data/Task501_BraTS/imagesTs/ -o /nnUNet/nnUNet_output/Task501_BraTS/nnUNetTrainerV2_AEPL/fold_0 -t 501 -m 3d_fullres -f 0 -tr nnUNetTrainerV2_AEPL
 ```
+### MGAEPL Train
+```
+CUDA_VISIBLE_DEVICES=0 nnUNet_train 3d_fullres nnUNetTrainerV2_MGAEPL 501 0
+```
 
+### MGAEPL Test
+```
+CUDA_VISIBLE_DEVICES=0 nnUNet_predict -i /nnUNet/nnUNet_raw/nnUNet_raw_data/Task501_BraTS/imagesTs/ -o /nnUNet/nnUNet_output/Task501_BraTS/nnUNetTrainerV2_MGAEPL/fold_0 -t 501 -m 3d_fullres -f 0 -tr nnUNetTrainerV2_MGAEPL
+```
 2. Our experimental results are shown in the table:
 ![refinement](./pictures/img.png)
 
