@@ -1,5 +1,5 @@
 ## MGAEPL: Multi-Granularity Automated and Editable Prompt Learning for Brain Tumor Segmentation
-This repository provides the code for conference paper "AEPL: Automated and Editable Prompt Learning for Brain Tumor Segmentation, ISBI 2025" and its journal version "MGAEPL: Multi-Granularity Automated and Editable
+This repository provides the code for our conference paper "AEPL: Automated and Editable Prompt Learning for Brain Tumor Segmentation, ISBI 2025" and its journal version "MGAEPL: Multi-Granularity Automated and Editable
 Prompt Learning for Brain Tumor Segmentation". 
 
 
@@ -10,7 +10,7 @@ Prompt Learning for Brain Tumor Segmentation".
 Fig. 1. Structure of AEPL.
 
 ![MGAEPL](./pictures/AEPL_v13.png)
-Fig. 1. Structure of MGAEPL.
+Fig. 2. Structure of MGAEPL.
 
 ### Requirementss
 Some important required packages include:
